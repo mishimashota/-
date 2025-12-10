@@ -4,16 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shota Mishima | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- 全体の設定 --- */
-        body {
+        /* --- Base Variables & Reset --- */
+        :root {
+            --primary-color: #2B7A78; /* 知的なティールブルー */
+            --secondary-color: #DEF2F1; /* 薄い背景色 */
+            --text-color: #333333;
+            --text-light: #666666;
+            --white: #ffffff;
+            --bg-color: #f9f9f9;
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Noto Sans JP', sans-serif;
-            background-color: #0d1117; /* GitHubのようなダークな背景 */
-            color: #e6edf3;
-            line-height: 1.6;
+            color: var(--text-color);
+            line-height: 1.8;
+            background-color: var(--bg-color);
+            -webkit-font-smoothing: antialiased;
         }
 
         a {
@@ -22,250 +39,382 @@
             transition: 0.3s;
         }
 
-        /* --- ヘッダー --- */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background: rgba(13, 17, 23, 0.9);
-            position: fixed;
-            width: 100%;
-            box-sizing: border-box;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid #30363d;
-        }
-
-        .logo {
-            font-family: 'Roboto Mono', monospace; /* プログラミングコード風フォント */
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #58a6ff; /* ITっぽい青 */
-        }
-
-        nav ul {
-            display: flex;
+        ul {
             list-style: none;
-            gap: 30px;
-            margin: 0;
-            padding: 0;
         }
 
-        nav a:hover {
-            color: #58a6ff;
-        }
-
-        /* --- メインビジュアル（トップ画像） --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            /* IT系の背景画像を設定 (Unsplashから取得) */
-            background: linear-gradient(rgba(13, 17, 23, 0.7), rgba(13, 17, 23, 0.7)), url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
+        /* --- Layout Components --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
             padding: 0 20px;
         }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin: 0 0 10px 0;
-            letter-spacing: 2px;
-        }
-
-        .hero-content h1 span {
-            color: #58a6ff;
-        }
-
-        .hero-content p {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 1.2rem;
-            color: #8b949e;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 30px;
-            border: 1px solid #58a6ff;
-            color: #58a6ff;
-            border-radius: 4px;
-            font-family: 'Roboto Mono', monospace;
-        }
-
-        .btn:hover {
-            background: #58a6ff;
-            color: #0d1117;
-        }
-
-        /* --- コンテンツ共通 --- */
         section {
-            padding: 80px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
+            padding: 80px 0;
         }
 
-        h2 {
+        .section-title {
             font-size: 2rem;
-            border-bottom: 2px solid #30363d;
-            padding-bottom: 10px;
-            margin-bottom: 40px;
-            font-family: 'Roboto Mono', monospace;
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--primary-color);
+            position: relative;
         }
 
-        h2::before {
-            content: "# ";
-            color: #58a6ff;
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 15px auto 0;
         }
 
-        /* --- About --- */
-        .profile {
+        /* --- Header --- */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header-inner {
             display: flex;
-            align-items: flex-start;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-list a {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .nav-list a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* 背景画像：PCとデスク */
+            background: linear-gradient(rgba(222, 242, 241, 0.8), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1352&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            letter-spacing: 0.05em;
+            font-weight: bold;
+        }
+
+        /* --- About Section --- */
+        .about-content {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        }
+
+        .profile-header {
+            display: flex;
             gap: 40px;
-            flex-wrap: wrap;
+            align-items: flex-start;
+            margin-bottom: 40px;
         }
 
         .profile-img {
-            width: 200px;
-            height: 200px;
-            background-color: #30363d;
-            border-radius: 50%;
-            object-fit: cover;
-            /* プロフィール画像があればここにパスを入れる。今は仮画像 */
-            background-image: url('https://via.placeholder.com/200/30363d/8b949e?text=Shota');
+            width: 150px;
+            height: 150px;
+            /* プロフィール画像 */
+            background-image: url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=880&q=80');
             background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            flex-shrink: 0;
         }
 
-        .profile-text {
-            flex: 1;
-        }
-
-        .university {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #58a6ff;
+        .profile-info h3 {
+            font-size: 1.5rem;
             margin-bottom: 10px;
+        }
+
+        .profile-info .university {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 20px;
             display: block;
         }
 
-        /* --- Works (カード型デザイン) --- */
+        /* --- Gakuchika Area --- */
+        .story-box {
+            margin-top: 30px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 20px;
+        }
+
+        .story-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .story-text p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .story-highlight {
+            background-color: var(--secondary-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 500;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        /* --- Works Section --- */
         .works-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 30px;
         }
 
         .work-card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 20px;
-            transition: 0.3s;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
         }
 
         .work-card:hover {
             transform: translateY(-5px);
-            border-color: #58a6ff;
         }
 
-        .work-card h3 {
-            margin-top: 0;
+        .work-image {
+            height: 200px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .work-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+        
+        .work-card:hover .work-image img {
+            transform: scale(1.05);
+        }
+
+        .work-info {
+            padding: 20px;
+        }
+
+        .work-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .work-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border-radius: 20px;
+            margin-right: 5px;
         }
 
         /* --- Footer --- */
         footer {
+            background-color: var(--text-color);
+            color: var(--white);
             text-align: center;
-            padding: 40px;
-            background: #0d1117;
-            border-top: 1px solid #30363d;
-            color: #8b949e;
-            font-size: 0.9rem;
+            padding: 30px 0;
+            margin-top: 60px;
         }
 
-        /* --- スマホ対応 --- */
+        footer p {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* --- Mobile Responsive --- */
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.5rem; }
-            .profile { flex-direction: column; align-items: center; }
-            .profile-text { text-align: center; }
-            header { padding: 15px 20px; }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .story-box {
+                border-left: none;
+                border-top: 4px solid var(--primary-color);
+                padding-left: 0;
+                padding-top: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo"><a href="#">Shota.M</a></div>
-        <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#works">Works</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="container header-inner">
+            <div class="logo">SHOTA MISHIMA</div>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#works">Works</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <section class="hero">
-        <div class="hero-content">
-            <h1>三嶋 祥太</h1>
-            <p>Engineer / Student</p>
-            <p>日本大学理工学部応用情報工学科</p>
-            <a href="#about" class="btn">View Portfolio</a>
+        <div class="container">
+            <h1>Create & Communicate</h1>
+            <p>Web Designer / University Student</p>
         </div>
     </section>
 
     <section id="about">
-        <h2>About Me</h2>
-        <div class="profile">
-            <div class="profile-img"></div>
-            <div class="profile-text">
-                <span class="university">日本大学理工学部 応用情報工学科</span>
-                <p>
-                    はじめまして、三嶋祥太です。<br>
-                    現在、情報工学を専攻し、プログラミングやIT技術について深く学んでいます。<br>
-                    新しい技術に触れることが好きで、Web開発やアプリケーション制作に挑戦しています。
-                </p>
-                <p>
-                    <strong>Skills:</strong> HTML, CSS, JavaScript, Python, C言語
-                </p>
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            
+            <div class="about-content">
+                <div class="profile-header">
+                    <div class="profile-img"></div>
+                    <div class="profile-info">
+                        <h3>三嶋 祥太</h3>
+                        <span class="university">日本大学理工学部 応用情報工学科 1年</span>
+                        <p>Webデザインとコーディングを勉強中の大学生です。「ユーザーに寄り添うデザイン」を心がけています。趣味はカフェ巡りと写真撮影です。</p>
+                    </div>
+                </div>
+
+                <div class="story-box">
+                    <h4 class="story-title">力を注いだこと：部活動での新入部員獲得への挑戦</h4>
+                    <div class="story-text">
+                        <p>
+                            大学では部活動の副部長を務めました。就任当初、部員数が減少しており、部の存続自体が危ぶまれる危機的な状況でした。
+                            特に悔しさを感じたのは文化祭です。一生懸命準備をしたにも関わらず、展示が素通りされてしまい、活動の面白さを伝えきれていませんでした。
+                        </p>
+                        <p>
+                            「新入部員を1人でも増やす」という目標を掲げ、私は2つのアクションを起こしました。
+                            1つ目は、来場者の目を引くための展示レイアウトの見直しと、説明文の工夫です。
+                            2つ目は、私自身が積極的に来場者に声をかけ、活動の具体的な魅力と熱意を直接伝えることでした。
+                        </p>
+                        <p>
+                            結果、その熱意が伝わったのか、多くの新入部員を迎えることができ、部は再び活気を取り戻しました。
+                        </p>
+                    </div>
+                    <div class="story-highlight">
+                        Learn：受け身ではなく、自ら「伝える努力」をすることの重要性
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <section id="works">
-        <h2>Works</h2>
-        <div class="works-grid">
-            <div class="work-card">
-                <h3>Portfolio Site</h3>
-                <p>現在ご覧いただいているこのポートフォリオサイトです。GitHub Pagesを使用して公開しています。</p>
-                <p style="color: #8b949e; font-size: 0.9rem;">HTML / CSS</p>
-            </div>
-            <div class="work-card">
-                <h3>Python App</h3>
-                <p>大学の課題で制作したデータ分析ツールです。（ここに制作物の説明を書く）</p>
-                <p style="color: #8b949e; font-size: 0.9rem;">Python / Pandas</p>
-            </div>
-            <div class="work-card">
-                <h3>Unity Game</h3>
-                <p>趣味で制作している簡単な2Dアクションゲームです。</p>
-                <p style="color: #8b949e; font-size: 0.9rem;">C# / Unity</p>
+        <div class="container">
+            <h2 class="section-title">Works</h2>
+            <div class="works-grid">
+                
+                <article class="work-card">
+                    <div class="work-image">
+                        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cafe Image">
+                    </div>
+                    <div class="work-info">
+                        <h3>架空のカフェサイト</h3>
+                        <p>落ち着いた雰囲気を伝えるための配色と写真選定にこだわりました。</p>
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">Design</span>
+                    </div>
+                </article>
+
+                <article class="work-card">
+                    <div class="work-image">
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Event Image">
+                    </div>
+                    <div class="work-info">
+                        <h3>イベントLP制作</h3>
+                        <p>大学生向けのイベントランディングページ。FVでのインパクトを重視。</p>
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                </article>
+
+                <article class="work-card">
+                    <div class="work-image">
+                        <img src="https://images.unsplash.com/photo-1558655146-d09347e0c766?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Design Image">
+                    </div>
+                    <div class="work-info">
+                        <h3>バナーデザイン集</h3>
+                        <p>クリック率を意識した様々なパターンのバナーを作成。</p>
+                        <span class="tag">Photoshop</span>
+                        <span class="tag">Illustrator</span>
+                    </div>
+                </article>
+
             </div>
         </div>
     </section>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p style="text-align: center;">お問い合わせはメール、またはSNSのDMまでお願いいたします。</p>
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="mailto:example@email.com" class="btn">Send Email</a>
+    <footer id="contact">
+        <div class="container">
+            <h3>Contact</h3>
+            <p style="margin: 20px 0;">お問い合わせはメールにてお願いいたします。</p>
+            <p><a href="mailto:example@email.com" style="text-decoration: underline;">example@email.com</a></p>
+            <br>
+            <p>&copy; 2025 Shota Mishima Portfolio.</p>
         </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Shota Mishima. All Rights Reserved.</p>
     </footer>
 
 </body>
